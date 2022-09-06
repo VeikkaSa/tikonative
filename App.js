@@ -1,26 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
 
-  const [text, setText] = useState("");
+  const [number, setNumber] = useState("");
+  const [number2, setNumber2] = useState("");
+  const [result, setResult] = useState("");
 
-  const buttonPressed = () => {
-    Alert.alert("You typed: " + text)
+  const plusbuttonPressed = () => {
+    setResult(parseInt(number) + parseInt(number2))
+  }
+
+  const minusbuttonPressed = () => {
+    setResult(parseInt(number) - parseInt(number2))
   }
 
   return (
     <View style={styles.container}>
-      <TextInput 
+      <Text>Result: {result}</Text>
+      <TextInput keyboardType={"number-pad"}
         style={styles.input}
-        onChangeText={text => { 
-          console.log(text)
-          setText(text) }}
-        value={text}
+        onChangeText={number => { 
+          setNumber(number) }}
+          value={number}
       />
-      <Button title ="Press me" onPress={buttonPressed} />
+
+      <TextInput keyboardType={"number-pad"}
+        style={styles.input}
+        onChangeText={number2 => { 
+          setNumber2(number2) }}
+          value={number2}
+      />  
       <StatusBar style="auto" />
+      <View style={{ flexDirection:"row" }}>
+        <Button title ="+" onPress={plusbuttonPressed} />
+        <Button title ="-" onPress={minusbuttonPressed} />
+    </View>
     </View>
   );
 }
